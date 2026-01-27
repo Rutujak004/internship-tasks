@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Appointments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">Clinic System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDoctor" 
+                aria-controls="navbarDoctor" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarDoctor">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav align-items-center">
+    <li class="nav-item me-3 text-white d-flex align-items-center">
+        <i class="bi bi-person-circle me-1"></i>
+        <span>{{ user.username }}</span>
+    </li>
+
+    {% if user.email %}
+    <li class="nav-item me-3 text-white d-flex align-items-center">
+        <i class="bi bi-envelope-fill me-1"></i>
+        <span>{{ user.email }}</span>
+    </li>
+    {% endif %}
+
+    <li class="nav-item">
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-light">
+                Logout
+            </button>
+        </form>
+    </li>
+</ul>
+
+            {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">My Patient Appointments</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover bg-white shadow-sm">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.patient.username }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>
+                        {% if appointment.status == "approved" %}
+                            <span class="badge bg-success">{{ appointment.status|capfirst }}</span>
+                        {% elif appointment.status == "rejected" %}
+                            <span class="badge bg-danger">{{ appointment.status|capfirst }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{{ appointment.status|capfirst }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'update_status' appointment.id 'approved' %}" class="btn btn-sm btn-success me-1">
+                            ✅ Approve
+                        </a>
+                        <a href="{% url 'update_status' appointment.id 'rejected' %}" class="btn btn-sm btn-danger">
+                            ❌ Reject
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No appointments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
