@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>📚 Book Management</h3>
+        <a href="{% url 'add_book' %}" class="btn btn-primary">➕ Add Book</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Price</th> <!-- ✅ Added -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.genre }}</td>
+                        <td>₹{{ book.price }}</td> <!-- ✅ Added -->
+                        <td>
+                            <a href="{% url 'view_book' book.id %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'edit_book' book.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_book' book.id %}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure to delete this book?')">
+                               Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No books available</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
