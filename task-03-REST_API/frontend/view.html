@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Book</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<div class="container col-md-6">
+
+<h3>Book Details</h3>
+
+<ul class="list-group">
+  <li class="list-group-item"><b>Title:</b> <span id="t"></span></li>
+  <li class="list-group-item"><b>Author:</b> <span id="a"></span></li>
+  <li class="list-group-item"><b>Date:</b> <span id="d"></span></li>
+</ul>
+
+<a href="list.html" class="btn btn-secondary mt-3">Back</a>
+
+</div>
+
+<script>
+const API = "http://127.0.0.1:8000/api/books/";
+const id = new URLSearchParams(location.search).get("id");
+
+fetch(API + id + "/")
+.then(r => r.json())
+.then(b => {
+  t.innerText = b.title;
+  a.innerText = b.author;
+  d.innerText = b.publish_date;
+});
+</script>
+</body>
+</html>
