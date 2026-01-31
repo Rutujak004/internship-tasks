@@ -4,7 +4,9 @@ A simple Django project for managing books with basic CRUD operations using Djan
 
 **Features:**  
 -Add, view, edit, and delete books
+
 -Template-based frontend
+
 -Bootstrap for styling
 
 **Tech Stack:**  
