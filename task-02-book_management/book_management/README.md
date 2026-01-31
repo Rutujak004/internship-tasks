@@ -1,10 +1,4 @@
-# Internship Task Repository
-
-This repository contains multiple internship tasks related to Django development, including CRUD operations, REST API integration, and role-based systems.
-
-## Tasks Overview
-
-### Task 01 – Clinic Appointment System
+### Task 02 – Basic CRUD Operations in Django (Book Management)
 **Description:**  
 A simple Django project for managing books with basic CRUD operations using Django templates.
 
