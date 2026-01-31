@@ -1,9 +1,3 @@
-# Internship Task Repository
-
-This repository contains multiple internship tasks related to Django development, including CRUD operations, REST API integration, and role-based systems.
-
-## Tasks Overview
-
 ### Task 01 – Clinic Appointment System
 **Description:**  
 A Django-based clinic appointment system with role-based authentication.
