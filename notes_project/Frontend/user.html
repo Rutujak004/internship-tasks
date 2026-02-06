@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - Personal Notes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #noteAlert {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1050;
+      width: 400px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Personal Notes</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2 class="mb-4">User Dashboard</h2>
+
+    <!-- Add Note Button -->
+    <button class="btn btn-success mb-3" onclick="showNoteForm()">Add Note</button>
+
+    <!-- Alert Form -->
+    <div id="noteAlert" class="alert alert-light shadow-lg">
+      <h5 class="alert-heading">Add New Note</h5>
+      <form id="noteForm">
+        <input type="text" id="noteTitle" class="form-control mb-2" placeholder="Title" required>
+        <textarea id="noteContent" class="form-control mb-2" placeholder="Content" rows="3" required></textarea>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" onclick="hideNoteForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Notes Table -->
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="notesTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Edit Note Modal -->
+  <div class="modal fade" id="editNoteModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="editNoteForm">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Note</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="editNoteId">
+            <input type="text" id="editNoteTitle" class="form-control mb-2" placeholder="Title" required>
+            <textarea id="editNoteContent" class="form-control mb-2" placeholder="Content" rows="3" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/user.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

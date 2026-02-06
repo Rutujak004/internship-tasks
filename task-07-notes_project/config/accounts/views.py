@@ -1,9 +1,7 @@
-from django.shortcuts import render
-
-# Create your views here.
+# accounts/views.py
 from rest_framework import generics
-from django.contrib.auth import get_user_model
 from .serializers import RegisterSerializer
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
